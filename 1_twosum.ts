@@ -5,8 +5,8 @@
  * @LastEditors: Xiaorui Wang
  * @LastEditTime: 2025-05-09 21:46:06
  * @Description: use
- * 
- * Copyright (c) 2025 by Xiaorui Wang, All Rights Reserved. 
+ *
+ * Copyright (c) 2025 by Xiaorui Wang, All Rights Reserved.
  */
 /**
  * Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.
@@ -32,20 +32,21 @@ Input: nums = [3,3], target = 6
 Output: [0,1]
  */
 
-/**
- * @param {number[]} nums
- * @param {number} target
- * @return {number[]}
- */
-var twoSum = function(nums, target) {
+namespace twoSum {
+  /**
+   * @param {number[]} nums
+   * @param {number} target
+   * @return {number[]}
+   */
+  var twoSum = function (nums: number[], target: number) {
     // use object instead of map will speed up the execution.
-    let map = {};
+    let map: { [key: number]: number } = {};
     for (let i = 0; i < nums.length; i++) {
-        let complement = target - nums[i];
-        if (complement in map) {
-            return [map[complement], i];
-        }
-        map[nums[i]] = i;
+      let complement = target - nums[i];
+      if (complement in map) {
+        return [map[complement], i];
+      }
+      map[nums[i]] = i;
     }
     return [];
 
@@ -62,11 +63,12 @@ var twoSum = function(nums, target) {
     // console.log(map);
     // console.log(nums);
     // return [];
-};
+  };
 
-console.log(twoSum([2,7,11,15], 9)); // Output: [0, 1]
-console.log(twoSum([3,2,4], 6)); // Output: [1, 2]
-console.log(twoSum([3,3], 6)); // Output: [0, 1]
-console.log(twoSum([1,2,3,4,5], 10)); // Output: []
-console.log(twoSum([1], 6)); // Output: [1, 3]
-console.log(twoSum([6], 6)); // Output: [1, 3]
+  console.log(twoSum([2, 7, 11, 15], 9)); // Output: [0, 1]
+  console.log(twoSum([3, 2, 4], 6)); // Output: [1, 2]
+  console.log(twoSum([3, 3], 6)); // Output: [0, 1]
+  console.log(twoSum([1, 2, 3, 4, 5], 10)); // Output: []
+  console.log(twoSum([1], 6)); // Output: [1, 3]
+  console.log(twoSum([6], 6)); // Output: [1, 3]
+}
