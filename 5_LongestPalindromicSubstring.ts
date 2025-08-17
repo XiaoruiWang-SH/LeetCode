@@ -84,24 +84,66 @@ namespace longestPalindrome {
         return s.slice(start,end+1);
     };
      */
-
+  /**
+   * 解法: 使用动态规划
+   * ----------------
+   * DP表示: dp[i][j] = 1 表示s[i...j]是回文串，0表示不是
+   *
+   * 状态转移方程:
+   * dp[i][j] = 1 if s[i] === s[j] && dp[i+1][j-1] === 1
+   *
+   * 初始化:
+   * dp[i][i] = 1 (单个字符必是回文)
+   * dp[i][i+1] = 1 if s[i] === s[i+1] (相邻字符相等时是回文)
+   *
+   * 填表顺序示例 (s = "babad"):
+   *     b a b a d
+   *   b 1 0 1 0 0  ← 先填对角线和相邻位置
+   *   a   1 0 1 0  ← 然后按长度递增填表
+   *   b     1 0 0  ← j=2: 检查长度为3的子串
+   *   a       1 0  ← j=3: 检查长度为4的子串
+   *   d         1  ← j=4: 检查长度为5的子串
+   *
+   * 填表过程:
+   * 1. 初始化: 对角线全为1，相邻位置检查是否相等
+   * 2. 按长度递增: j从2到s_len-1，i从0到j-1
+   * 3. 状态转移: 检查s[i]===s[j] && dp[i+1][j-1]===1
+   */
   function longestPalindrome(s: string): string {
+    let longestS = '';
     const s_len = s.length;
-    console.log(s_len);
-    let dp = Array.from({ length: s_len }, () => new Array(s_len).fill(0));
-
+    // 创建空dp数组
+    const dp = Array.from({ length: s_len }, (_, i) =>
+      new Array(s_len).fill(0)
+    );
+    // 单个字符串,必然是
     for (let i = 0; i < s_len; ++i) {
-      for (let j = 0; j < s_len; ++j) {
-        console.log(`dp[${i}][${j}] = ${dp[i][j]}`);
+      dp[i][i] = 1;
+      longestS = longestS.length > 1 ? longestS : s[i];
+      // 相邻字符串,两个字符相同时必然是
+      if (i < s_len - 1 && s[i + 1] === s[i]) {
+        dp[i][i + 1] = 1;
+        longestS = s.slice(i, i + 2);
       }
     }
-    return '';
+    // 填充顺序
+    // 1. 首先, i > j的格子不用考虑
+    // 2. 内层是i(先填充i),外层是j. 因为dp的条件需要看i+1,需要先知道i+1的值.
+    // 3. 注意边界条件
+    for (let j = 2; j < s_len; ++j) {
+      for (let i = 0; i < j - 1; ++i) {
+        if (s[j] === s[i] && dp[i + 1][j - 1] === 1) {
+          dp[i][j] = 1;
+          longestS = j - i + 1 > longestS.length ? s.slice(i, j + 1) : longestS;
+        }
+      }
+    }
+    return longestS;
   }
 
-  // let s = "babad"
-  // let s = "cbbd"
+  let s = 'babad';
+  //   let s = 'cbbd';
 
-  let s = 'babacddcababb';
-  console.log(s);
+  //   let s = 'babacddcababb';
   console.log(longestPalindrome(s));
 }
