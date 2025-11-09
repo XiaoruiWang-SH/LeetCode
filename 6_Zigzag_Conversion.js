@@ -11,6 +11,9 @@ var get_char = function (s, index) {
  * @param {number} numRows
  * @return {string}
  */
+
+/**
+ * 
 var convert = function (s, numRows) {
   if (numRows === 1) {
     return s;
@@ -61,5 +64,34 @@ var convert = function (s, numRows) {
   return result.join('');
 };
 
-const result = convert('PAYPALISHIRING', 3);
+ */
+
+/**
+ * Using d (1, -1) reprensent down and up, just append char to row[]
+ * @param {*} s
+ * @param {*} numRows
+ */
+var convert = function (s, numRows) {
+  if (numRows === 1 || s.length < numRows) {
+    return s;
+  }
+  let d = 1,
+    idx = 0;
+  let arr = new Array(numRows).fill(null).map(() => []);
+  for (char of s) {
+    arr[idx].push(char);
+    if (idx === 0) {
+      d = 1;
+    } else if (idx === numRows - 1) {
+      d = -1;
+    }
+    idx += d;
+  }
+  for (let i = 0; i < numRows; ++i) {
+    arr[i] = arr[i].join('');
+  }
+  return arr.join('');
+};
+
+const result = convert('PAYPALISHIRING', 4);
 console.log(result);
