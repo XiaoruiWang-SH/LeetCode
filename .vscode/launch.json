@@ -9,7 +9,7 @@
       "request": "launch",
       "name": "Launch Program",
       "skipFiles": ["<node_internals>/**"],
-      "program": "${workspaceFolder}/6_Zigzag_Conversion.js",
+      "program": "${workspaceFolder}/88_merge_sorted_array.js",
       "outFiles": ["${workspaceFolder}/**/*.js"]
     }
   ]
