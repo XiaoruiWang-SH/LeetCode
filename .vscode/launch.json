@@ -9,7 +9,7 @@
       "request": "launch",
       "name": "Launch Program",
       "skipFiles": ["<node_internals>/**"],
-      "program": "${workspaceFolder}/88_merge_sorted_array.js",
+      "program": "${workspaceFolder}/26_remove_Duplicates_from_Sorted_Array.js",
       "outFiles": ["${workspaceFolder}/**/*.js"]
     }
   ]
